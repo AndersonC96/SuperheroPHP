@@ -1,6 +1,10 @@
 <?php
     require_once 'config.php';// Configurações
     require_once 'functions.php';// Funções
+    <form action="index.php" method="GET">
+        <input type="text" name="search" placeholder="Digite o nome do personagem">
+        <input type="submit" value="Pesquisar">
+    </form>
     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;// Página atual
     $start = ($page - 1) * RESULTS_PER_PAGE;// Início da página
     $end = $start + RESULTS_PER_PAGE;// Fim da página
