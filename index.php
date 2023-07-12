@@ -1,33 +1,37 @@
-<?php
-    require_once 'config.php';// Configurações
-    require_once 'functions.php';// Funções
-    <form action="index.php" method="GET">
-        <input type="text" name="search" placeholder="Digite o nome do personagem">
-        <input type="submit" value="Pesquisar">
-    </form>
-    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;// Página atual
-    $start = ($page - 1) * RESULTS_PER_PAGE;// Início da página
-    $end = $start + RESULTS_PER_PAGE;// Fim da página
-    $response = superheroAPIRequest("characters", [
-        'limit' => RESULTS_PER_PAGE,
-        'offset' => $start
-    ]);
-    if($response['response']['code'] == 200){// Sucesso
-        $characters = $response['body']['results'];// Personagens
-        $totalCharacters = $response['body']['total'];// Total de personagens
-    }else{// Erro
-        $error = $response['body']['error'];// Erro
-        echo "Erro na requisição: $error";// Exibir erro
-    }
-    foreach($characters as $character){// Para cada personagem
-        $name = $character['name'];// Nome do personagem
-        $image = $character['image']['url'];// Imagem do personagem
-        echo "<h2>$name</h2>";// Exibir nome
-        echo "<img src='$image' alt='$name'>";// Exibir imagem
-    }
-    $totalPages = ceil($totalCharacters / RESULTS_PER_PAGE);// Total de páginas
-    for($i = 1; $i <= $totalPages; $i++){// Para cada página
-        $isActive = ($i == $page) ? 'active' : '';// Página atual
-        echo "<a href='index.php?page=$i' class='$isActive'>$i</a>";// Exibir página
-    }
-?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Superhero API - Home</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Superhero API</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="characters.php">Ver Personagens</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="random_character.php">Personagem Aleatório</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="search.php">Pesquisar Personagens</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Bem-vindo à Superhero API!</h1>
+        <p>Seu site para explorar heróis e personagens de quadrinhos!</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
