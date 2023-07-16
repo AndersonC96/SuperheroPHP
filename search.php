@@ -72,9 +72,6 @@
                             ];// Array com as estatísticas
                             foreach($stats as $statName => $statValue){
                                 echo '<h5 class="card-title"><b>' . $statName . ': </b></h5>';
-                                /*echo '<div class="progress">';
-                                echo '<div class="progress-bar" role="progressbar" style="width: ' . $statValue . '%" aria-valuenow="' . $statValue . '" aria-valuemin="0" aria-valuemax="100"></div>';
-                                echo '</div>';*/
                                 echo '<div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">';
                                 echo '<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: ' . $statValue . '%" aria-valuenow="' . $statValue . '" aria-valuemin="0" aria-valuemax="100">'.$statValue.'%'.'</div>';
                                 echo '</div>';
